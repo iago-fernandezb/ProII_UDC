@@ -1,0 +1,427 @@
+<html>
+<head>
+<title>main.c</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #7ec3e6;}
+.s1 { color: #ebebeb;}
+.s2 { color: #a9b837;}
+.s3 { color: #54b33e;}
+.s4 { color: #33ccff; font-weight: bold;}
+.s5 { color: #ed864a;}
+.s6 { color: #ed864a; font-weight: bold;}
+</style>
+</head>
+<body bgcolor="#131314">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+main.c</font>
+</center></td></tr></table>
+<pre><span class="s0">/* 
+ * TITLE: PROGRAMMING II LABS 
+ * SUBTITLE: Practical 2 
+ * AUTHOR 1: Iago Fernández Blanco LOGIN 1: iago.fernandez.blanco@udc.es 
+ * AUTHOR 2: Xoán Suárez Mayta LOGIN 2: xoan.suarez@udc.es 
+ * GROUP: 4.2 
+ * DATE: 12 / 04 / 24 
+ */</span>
+
+<span class="s2">#include </span><span class="s3">&lt;stdio.h&gt;</span>
+<span class="s2">#include </span><span class="s3">&lt;string.h&gt;</span>
+<span class="s2">#include </span><span class="s3">&quot;stdlib.h&quot;</span>
+
+<span class="s2">#include </span><span class="s3">&quot;types.h&quot;</span>
+<span class="s2">#include </span><span class="s3">&quot;user_list.h&quot;</span>
+
+<span class="s2">#define </span><span class="s1">MAX_BUFFER </span><span class="s4">255</span>
+
+<span class="s5">char</span><span class="s1">* NumToCategory(</span><span class="s5">char </span><span class="s1">*u</span><span class="s6">,</span><span class="s1">tListU *L) {</span>
+    <span class="s1">tPosU p</span><span class="s6">;</span>
+    <span class="s1">tItemU item</span><span class="s6">;</span>
+    <span class="s5">static char </span><span class="s1">category[</span><span class="s4">10</span><span class="s1">]</span><span class="s6">;</span>
+    <span class="s1">p = findItemU(u</span><span class="s6">, </span><span class="s1">*L)</span><span class="s6">;</span>
+    <span class="s1">item = getItemU(p</span><span class="s6">, </span><span class="s1">*L)</span><span class="s6">;</span>
+    <span class="s5">if </span><span class="s1">(item.userCategory == basic) {</span>
+        <span class="s1">strcpy(category</span><span class="s6">, </span><span class="s3">&quot;basic&quot;</span><span class="s1">)</span><span class="s6">;</span>
+    <span class="s1">} </span><span class="s5">else </span><span class="s1">{</span>
+        <span class="s1">strcpy(category</span><span class="s6">, </span><span class="s3">&quot;pro&quot;</span><span class="s1">)</span><span class="s6">;</span>
+    <span class="s1">}</span>
+    <span class="s5">return </span><span class="s1">category</span><span class="s6">;</span>
+<span class="s1">}</span>
+
+<span class="s5">void </span><span class="s1">print_listS(tListS list) {</span>
+    <span class="s1">tPosS pos</span><span class="s6">;</span>
+    <span class="s1">tItemS item</span><span class="s6">;</span>
+
+    <span class="s5">if </span><span class="s1">(!isEmptyListS(list)) {</span>
+        <span class="s1">pos = firstS(list)</span><span class="s6">;</span>
+        <span class="s5">while </span><span class="s1">(pos != NULLS) {</span>
+            <span class="s1">item = getItemS(pos</span><span class="s6">, </span><span class="s1">list)</span><span class="s6">;</span>
+            <span class="s1">printf(</span><span class="s3">&quot;Song %s playtime %d</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s6">, </span><span class="s1">item.songTitle</span><span class="s6">, </span><span class="s1">item.playTime)</span><span class="s6">;</span>
+            <span class="s1">pos = nextS(pos</span><span class="s6">, </span><span class="s1">list)</span><span class="s6">;</span>
+        <span class="s1">}</span>
+        <span class="s1">printf(</span><span class="s3">&quot;</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s1">)</span><span class="s6">;</span>
+    <span class="s1">}</span>
+    <span class="s5">else </span><span class="s1">{</span>
+        <span class="s1">printf(</span><span class="s3">&quot;No songs</span><span class="s5">\n\n</span><span class="s3">&quot;</span><span class="s1">)</span><span class="s6">;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+
+<span class="s5">void </span><span class="s1">print_list(tListU list) {</span>
+    <span class="s1">tPosU pos</span><span class="s6">;</span>
+    <span class="s1">tItemU item</span><span class="s6">;</span>
+    <span class="s5">char </span><span class="s1">category[</span><span class="s4">6</span><span class="s1">]</span><span class="s6">;</span>
+
+    <span class="s5">if </span><span class="s1">(!isEmptyListU(list)) {</span>
+        <span class="s1">pos = firstU(list)</span><span class="s6">;</span>
+        <span class="s5">while </span><span class="s1">(pos != NULLU) {</span>
+            <span class="s1">item = getItemU(pos</span><span class="s6">, </span><span class="s1">list)</span><span class="s6">;</span>
+            <span class="s5">if</span><span class="s1">(item.userCategory==</span><span class="s4">0</span><span class="s1">) {</span>
+                <span class="s1">strcpy(category</span><span class="s6">, </span><span class="s3">&quot;basic&quot;</span><span class="s1">)</span><span class="s6">;</span>
+            <span class="s1">}</span>
+            <span class="s5">else</span><span class="s1">{</span>
+                <span class="s1">strcpy(category</span><span class="s6">, </span><span class="s3">&quot;pro&quot;</span><span class="s1">)</span><span class="s6">;</span>
+            <span class="s1">}</span>
+            <span class="s1">printf(</span><span class="s3">&quot;User %s category %s totalplaytime %d</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s6">, </span><span class="s1">item.userName</span><span class="s6">, </span><span class="s1">category</span><span class="s6">, </span><span class="s1">item.totalPlayTime)</span><span class="s6">;</span>
+            <span class="s1">print_listS(item.songListS)</span><span class="s6">;</span>
+            <span class="s1">pos = nextU(pos</span><span class="s6">, </span><span class="s1">list)</span><span class="s6">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+
+<span class="s1">bool new(</span><span class="s5">char </span><span class="s1">*u</span><span class="s6">,  </span><span class="s5">char </span><span class="s1">*c</span><span class="s6">, </span><span class="s1">tListU *L) {</span>
+    <span class="s0">//Objetivo: Se incorporará el usuario a la lista de usuarios con la categoría indicada y su contador de tiempo de reproducción (totalPlayTime) inicializado a 0.</span>
+    <span class="s0">//Entrada: El nombre del usuario, su categoria y la lista</span>
+    <span class="s0">//Salida: True o False si fue posible insertarlo en la lista</span>
+    <span class="s0">//PreCD: Lista inicializada</span>
+    <span class="s1">tItemU d</span><span class="s6">;</span>
+    <span class="s1">strcpy(d.userName</span><span class="s6">, </span><span class="s1">u)</span><span class="s6">;</span>
+    <span class="s5">if </span><span class="s1">(strcmp(c</span><span class="s6">, </span><span class="s3">&quot;basic&quot;</span><span class="s1">) == </span><span class="s4">0</span><span class="s1">) {</span>
+        <span class="s1">d.userCategory = basic</span><span class="s6">;</span>
+    <span class="s1">} </span><span class="s5">else </span><span class="s1">{</span>
+        <span class="s1">d.userCategory = pro</span><span class="s6">;</span>
+    <span class="s1">}</span>
+    <span class="s1">d.totalPlayTime = </span><span class="s4">0</span><span class="s6">;</span>
+    <span class="s1">createEmptyListS(&amp;d.songListS)</span><span class="s6">;</span>
+    <span class="s5">if </span><span class="s1">(findItemU(u</span><span class="s6">, </span><span class="s1">*L) == NULLU) {</span>
+        <span class="s5">if </span><span class="s1">(insertItemU(d</span><span class="s6">, </span><span class="s1">L)) {</span>
+            <span class="s5">return </span><span class="s1">true</span><span class="s6">;</span>
+        <span class="s1">} </span><span class="s5">else </span><span class="s1">{</span>
+            <span class="s5">return </span><span class="s1">false</span><span class="s6">;</span>
+        <span class="s1">}</span>
+    <span class="s1">} </span><span class="s5">else </span><span class="s1">{</span>
+        <span class="s5">return </span><span class="s1">false</span><span class="s6">;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+
+<span class="s1">bool Add(</span><span class="s5">char </span><span class="s1">*u</span><span class="s6">,  </span><span class="s5">char </span><span class="s1">*c</span><span class="s6">, </span><span class="s1">tListU *L) {</span>
+    <span class="s0">//Objetivo:  se buscará el usuario y, si no hay ninguna canción con ese título (songTitle) en su lista de reproducción, la canción se añadirá al final de ésta. El valor inicial de su campo playTime será 0.</span>
+    <span class="s0">//Entrada: El nombre del usuario, el nombre de la cancion y una Lista de usuarios</span>
+    <span class="s0">//Salida: True o False si fue posible insertarlo en la lista</span>
+    <span class="s0">//PreCD: Lista inicializada</span>
+    <span class="s1">tPosU p= findItemU(u</span><span class="s6">, </span><span class="s1">*L)</span><span class="s6">;</span>
+    <span class="s5">if</span><span class="s1">(isEmptyListU(*L)) </span><span class="s5">return </span><span class="s1">false</span><span class="s6">;</span>
+    <span class="s5">if</span><span class="s1">(p!=NULLU){</span>
+        <span class="s1">tPosS q=findItemS(c</span><span class="s6">, </span><span class="s1">p-&gt;data.songListS)</span><span class="s6">;</span>
+        <span class="s5">if</span><span class="s1">(q==NULLS){</span>
+            <span class="s1">tItemS song</span><span class="s6">;</span>
+            <span class="s1">strcpy(song.songTitle</span><span class="s6">, </span><span class="s1">c)</span><span class="s6">;</span>
+            <span class="s1">song.playTime=</span><span class="s4">0</span><span class="s6">;</span>
+            <span class="s1">insertItemS(song</span><span class="s6">, </span><span class="s1">lastS(p-&gt;data.songListS)+</span><span class="s4">1</span><span class="s6">, </span><span class="s1">&amp;(p-&gt;data.songListS))</span><span class="s6">;</span>
+            <span class="s5">return </span><span class="s1">true</span><span class="s6">;</span>
+        <span class="s1">}</span>
+        <span class="s5">else return </span><span class="s1">false</span><span class="s6">;</span>
+    <span class="s1">}</span>
+    <span class="s5">else return </span><span class="s1">false</span><span class="s6">;</span>
+<span class="s1">}</span>
+
+<span class="s5">void </span><span class="s1">stats(</span><span class="s5">char </span><span class="s1">*commandNumber</span><span class="s6">, </span><span class="s5">char </span><span class="s1">command</span><span class="s6">, </span><span class="s1">tListU *L){</span>
+    <span class="s0">//Muestra los elementos de la lista y una serie de valores con respecto a esta</span>
+    <span class="s0">//Entrada: EL numero de peticion, el tipo de peticion y una lista</span>
+    <span class="s0">//Salida: El contenido entero de la lista y una serie de valores con respecto a esta</span>
+    <span class="s0">//PreCD: Lista inicializada</span>
+    <span class="s1">tPosU pos</span><span class="s6">;</span>
+    <span class="s5">int </span><span class="s1">count_basic=</span><span class="s4">0</span><span class="s6">,</span><span class="s1">count_pro=</span><span class="s4">0</span><span class="s6">;</span>
+    <span class="s5">int </span><span class="s1">count_basic_plays=</span><span class="s4">0</span><span class="s6">,</span><span class="s1">count_pro_plays=</span><span class="s4">0</span><span class="s6">;</span>
+    <span class="s1">printf(</span><span class="s3">&quot;********************</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s1">)</span><span class="s6">;</span>
+    <span class="s1">printf(</span><span class="s3">&quot;%s %c:</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s6">, </span><span class="s1">commandNumber</span><span class="s6">, </span><span class="s1">command)</span><span class="s6">;</span>
+    <span class="s1">print_list(*L)</span><span class="s6">;</span>
+
+    <span class="s1">printf(</span><span class="s3">&quot;Category  Users  TimePlay  Average</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s1">)</span><span class="s6">;</span>
+    <span class="s5">for </span><span class="s1">(pos = firstU(*L)</span><span class="s6">; </span><span class="s1">pos!=NULLU </span><span class="s6">; </span><span class="s1">pos=nextU(pos</span><span class="s6">, </span><span class="s1">*L)) {</span>
+        <span class="s1">tItemU item</span><span class="s6">;</span>
+        <span class="s1">item=getItemU(pos</span><span class="s6">, </span><span class="s1">*L)</span><span class="s6">;</span>
+        <span class="s5">if</span><span class="s1">(item.userCategory==basic){</span>
+            <span class="s1">count_basic=count_basic+</span><span class="s4">1</span><span class="s6">;</span>
+            <span class="s1">count_basic_plays=count_basic_plays+item.totalPlayTime</span><span class="s6">;</span>
+        <span class="s1">}</span>
+        <span class="s5">else</span><span class="s1">{</span>
+            <span class="s1">count_pro=count_pro+</span><span class="s4">1</span><span class="s6">;</span>
+            <span class="s1">count_pro_plays=count_pro_plays+item.totalPlayTime</span><span class="s6">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+    <span class="s5">float </span><span class="s1">media_a</span><span class="s6">, </span><span class="s1">media_b</span><span class="s6">;</span>
+    <span class="s1">media_a= (</span><span class="s5">float</span><span class="s1">)count_basic_plays/(</span><span class="s5">float</span><span class="s1">)count_basic</span><span class="s6">;</span>
+    <span class="s1">media_b= (</span><span class="s5">float</span><span class="s1">)count_pro_plays/(</span><span class="s5">float</span><span class="s1">)count_pro</span><span class="s6">;</span>
+    <span class="s5">if</span><span class="s1">(count_basic==</span><span class="s4">0</span><span class="s1">){</span>
+        <span class="s1">media_a=</span><span class="s4">0</span><span class="s6">;</span>
+    <span class="s1">}</span>
+    <span class="s1">printf(</span><span class="s3">&quot;Basic     %5d %9d %8.2f</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s6">, </span><span class="s1">count_basic</span><span class="s6">, </span><span class="s1">count_basic_plays</span><span class="s6">, </span><span class="s1">media_a)</span><span class="s6">;</span>
+    <span class="s5">if</span><span class="s1">(count_pro==</span><span class="s4">0</span><span class="s1">){</span>
+        <span class="s1">media_b=</span><span class="s4">0</span><span class="s6">;</span>
+    <span class="s1">}</span>
+    <span class="s1">printf(</span><span class="s3">&quot;Pro       %5d %9d %8.2f</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s6">, </span><span class="s1">count_pro</span><span class="s6">, </span><span class="s1">count_pro_plays</span><span class="s6">, </span><span class="s1">media_b)</span><span class="s6">;</span>
+<span class="s1">}</span>
+<span class="s1">bool upgrade(</span><span class="s5">char </span><span class="s1">*u</span><span class="s6">,</span><span class="s1">tListU *L){</span>
+    <span class="s1">tPosU p</span><span class="s6">;</span>
+    <span class="s1">tItemU item</span><span class="s6">;</span>
+    <span class="s5">char </span><span class="s1">category[</span><span class="s4">10</span><span class="s1">]</span><span class="s6">;</span>
+    <span class="s5">if</span><span class="s1">(isEmptyListU(*L)==false){</span>
+        <span class="s5">if</span><span class="s1">(findItemU(u</span><span class="s6">, </span><span class="s1">*L)!=NULLU){</span>
+            <span class="s1">p= findItemU(u</span><span class="s6">,</span><span class="s1">*L)</span><span class="s6">;</span>
+            <span class="s1">item=getItemU(p</span><span class="s6">, </span><span class="s1">*L)</span><span class="s6">;</span>
+            <span class="s5">if</span><span class="s1">(item.userCategory==basic) {</span>
+                <span class="s1">item.userCategory=pro</span><span class="s6">;</span>
+                <span class="s1">updateItemU(item</span><span class="s6">, </span><span class="s1">p</span><span class="s6">, </span><span class="s1">L)</span><span class="s6">;</span>
+                <span class="s1">strcpy(category</span><span class="s6">, </span><span class="s3">&quot;pro&quot;</span><span class="s1">)</span><span class="s6">;</span>
+                <span class="s5">return </span><span class="s1">true</span><span class="s6">;</span>
+            <span class="s1">}</span>
+            <span class="s5">else</span><span class="s1">{</span>
+                <span class="s5">return </span><span class="s1">false</span><span class="s6">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s5">else</span><span class="s1">{</span>
+            <span class="s5">return </span><span class="s1">false</span><span class="s6">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+    <span class="s5">else</span><span class="s1">{</span>
+        <span class="s5">return </span><span class="s1">false</span><span class="s6">;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+
+<span class="s1">bool play(</span><span class="s5">char </span><span class="s1">*u</span><span class="s6">, </span><span class="s5">char </span><span class="s1">*c</span><span class="s6">, </span><span class="s5">char </span><span class="s1">*m</span><span class="s6">, </span><span class="s1">tListU *L){</span>
+    <span class="s0">//Añade la duracion de una cancion a la lista de canciones del usuario</span>
+    <span class="s0">//Entrada: El nombre del usuario, el nombre de la cancion, la duracion de la cancion y la lista donde estan contenidas</span>
+    <span class="s0">//Salida: True o False dependiendo de si se ha podido realizar la funcion</span>
+    <span class="s0">//PreCD: Lista inicializada</span>
+    <span class="s1">tPosU p= findItemU(u</span><span class="s6">, </span><span class="s1">*L)</span><span class="s6">;</span>
+    <span class="s5">if</span><span class="s1">(isEmptyListU(*L)) </span><span class="s5">return </span><span class="s1">false</span><span class="s6">;</span>
+    <span class="s5">if</span><span class="s1">(p!=NULLU){</span>
+        <span class="s1">tPosS q=findItemS(c</span><span class="s6">, </span><span class="s1">p-&gt;data.songListS)</span><span class="s6">;</span>
+        <span class="s5">if</span><span class="s1">(q!=NULLS){</span>
+            <span class="s5">int </span><span class="s1">a </span><span class="s6">;</span>
+            <span class="s1">a= atoi(m)</span><span class="s6">;</span>
+            <span class="s1">tItemS items = getItemS(q</span><span class="s6">, </span><span class="s1">p-&gt;data.songListS)</span><span class="s6">;</span>
+            <span class="s1">tItemU itemU = getItemU(p</span><span class="s6">, </span><span class="s1">*L)</span><span class="s6">;</span>
+            <span class="s1">items.playTime =items.playTime+ a</span><span class="s6">;</span>
+            <span class="s1">itemU.totalPlayTime = itemU.totalPlayTime+ a</span><span class="s6">;</span>
+            <span class="s1">updateItemU(itemU</span><span class="s6">, </span><span class="s1">p</span><span class="s6">, </span><span class="s1">L)</span><span class="s6">;</span>
+            <span class="s1">updateItemS(items</span><span class="s6">, </span><span class="s1">q</span><span class="s6">, </span><span class="s1">&amp;(p-&gt;data.songListS))</span><span class="s6">;</span>
+            <span class="s1">printf(</span><span class="s3">&quot;* Play: user %s plays song %s playtime %d totalplaytime %d</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s6">, </span><span class="s1">u</span><span class="s6">, </span><span class="s1">c</span><span class="s6">, </span><span class="s1">items.playTime</span><span class="s6">, </span><span class="s1">p-&gt;data.totalPlayTime)</span><span class="s6">;</span>
+
+            <span class="s5">return </span><span class="s1">true</span><span class="s6">;</span>
+        <span class="s1">}</span>
+        <span class="s5">else return </span><span class="s1">false</span><span class="s6">;</span>
+    <span class="s1">}</span>
+    <span class="s5">else return </span><span class="s1">false</span><span class="s6">;</span>
+<span class="s1">}</span>
+
+<span class="s1">bool delete(</span><span class="s5">char </span><span class="s1">*u</span><span class="s6">, </span><span class="s1">tListU *L){</span>
+    <span class="s0">//Objetivo: Elimina a un usuario de la lista</span>
+    <span class="s0">//Entrada: El nombre del usuario a eliminar y la lista donde esta contenido</span>
+    <span class="s0">//Salida: True o False dependiendo de si se ha podido realizar la funcion</span>
+    <span class="s0">//PreCD: Lista inicializada</span>
+    <span class="s5">if</span><span class="s1">(isEmptyListU(*L)){</span>
+        <span class="s5">return </span><span class="s1">false</span><span class="s6">;</span>
+    <span class="s1">}</span>
+    <span class="s5">else</span><span class="s1">{</span>
+        <span class="s1">tPosU p = findItemU(u</span><span class="s6">, </span><span class="s1">*L)</span><span class="s6">;</span>
+        <span class="s5">if</span><span class="s1">(p!=NULLU) {</span>
+            <span class="s5">if </span><span class="s1">(!isEmptyListS((p-&gt;data.songListS))) {</span>
+                <span class="s1">p-&gt;data.songListS.LastPos = NULLS</span><span class="s6">;</span>
+            <span class="s1">}</span>
+            <span class="s1">printf(</span><span class="s3">&quot;* Delete: user %s category %s totalplaytime %d</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s6">,</span><span class="s1">u</span><span class="s6">, </span><span class="s1">NumToCategory(u</span><span class="s6">, </span><span class="s1">L)</span><span class="s6">, </span><span class="s1">p-&gt;data.totalPlayTime)</span><span class="s6">;</span>
+            <span class="s1">deleteAtPositionU(p</span><span class="s6">, </span><span class="s1">L)</span><span class="s6">;</span>
+            <span class="s5">return </span><span class="s1">true</span><span class="s6">;</span>
+        <span class="s1">}</span>
+        <span class="s5">else</span><span class="s1">{</span>
+            <span class="s5">return </span><span class="s1">false</span><span class="s6">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+
+<span class="s5">void </span><span class="s1">deleteaux(</span><span class="s5">char </span><span class="s1">*u</span><span class="s6">, </span><span class="s1">tListU *L){</span>
+
+        <span class="s1">tPosU p = findItemU(u</span><span class="s6">, </span><span class="s1">*L)</span><span class="s6">;</span>
+        <span class="s5">if</span><span class="s1">(p!=NULLU) {</span>
+            <span class="s5">if </span><span class="s1">(!isEmptyListS((p-&gt;data.songListS))) {</span>
+                <span class="s1">p-&gt;data.songListS.LastPos = NULLS</span><span class="s6">;</span>
+            <span class="s1">}</span>
+            <span class="s1">deleteAtPositionU(p</span><span class="s6">, </span><span class="s1">L)</span><span class="s6">;</span>
+        <span class="s1">}</span>
+        <span class="s5">else</span><span class="s1">{</span>
+        <span class="s1">}</span>
+<span class="s1">}</span>
+
+<span class="s1">bool Remove(</span><span class="s5">char </span><span class="s1">*u</span><span class="s6">, </span><span class="s1">tListU *L) {</span>
+    <span class="s0">//Objetivo: Elimina a todos los usuarios con un tiempo de reproduccion mayor al permitido pertenecientes a la categoria basic</span>
+    <span class="s0">//Entrada: El nombre del usuario a eliminar y la lista donde esta contenido</span>
+    <span class="s0">//Salida: True o False dependiendo de si se ha podido realizar la funcion</span>
+    <span class="s0">//PreCD: Lista inicializada</span>
+    <span class="s5">if </span><span class="s1">(isEmptyListU(*L)) {</span>
+        <span class="s5">return </span><span class="s1">false</span><span class="s6">; </span><span class="s0">// La lista está vacía, no hay nada que eliminar</span>
+    <span class="s1">} </span><span class="s5">else </span><span class="s1">{</span>
+        <span class="s5">int </span><span class="s1">limit = atoi(u)</span><span class="s6">;</span>
+        <span class="s1">tPosU pos = firstU(*L)</span><span class="s6">;</span>
+        <span class="s1">tPosU prev = NULLU</span><span class="s6">;</span>
+
+        <span class="s5">while </span><span class="s1">(pos != NULLU) {</span>
+            <span class="s1">tItemU item = getItemU(pos</span><span class="s6">, </span><span class="s1">*L)</span><span class="s6">;</span>
+
+            <span class="s5">if </span><span class="s1">(item.userCategory == basic &amp;&amp; item.totalPlayTime &gt; limit) {</span>
+                <span class="s1">printf(</span><span class="s3">&quot;Removing user %s total playtime %d</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s6">, </span><span class="s1">item.userName</span><span class="s6">, </span><span class="s1">item.totalPlayTime)</span><span class="s6">;</span>
+
+                <span class="s5">if </span><span class="s1">(prev == NULLU) {</span>
+                    <span class="s1">tPosU nextPos = nextU(pos</span><span class="s6">, </span><span class="s1">*L)</span><span class="s6">;</span>
+                    <span class="s1">deleteaux((</span><span class="s5">char </span><span class="s1">*) pos</span><span class="s6">, </span><span class="s1">L)</span><span class="s6">;</span>
+                    <span class="s1">pos = nextPos</span><span class="s6">;</span>
+                <span class="s1">} </span><span class="s5">else </span><span class="s1">{</span>
+                    <span class="s0">// El nodo a eliminar no es el primero de la lista</span>
+                    <span class="s1">tPosU nextPos = nextU(pos</span><span class="s6">, </span><span class="s1">*L)</span><span class="s6">;</span>
+                    <span class="s1">deleteaux((</span><span class="s5">char </span><span class="s1">*) prev-&gt;next</span><span class="s6">, </span><span class="s1">L)</span><span class="s6">;</span>
+                    <span class="s1">prev-&gt;next = nextPos</span><span class="s6">; </span><span class="s0">// Actualizar el puntero prev-&gt;next</span>
+                    <span class="s1">pos = nextPos</span><span class="s6">; </span><span class="s0">// Actualizar el puntero de posición</span>
+                <span class="s1">}</span>
+            <span class="s1">} </span><span class="s5">else </span><span class="s1">{</span>
+                <span class="s1">prev = pos</span><span class="s6">;</span>
+                <span class="s1">pos = nextU(pos</span><span class="s6">, </span><span class="s1">*L)</span><span class="s6">; </span><span class="s0">// Avanzar al siguiente elemento</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+
+        <span class="s5">return </span><span class="s1">true</span><span class="s6">;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+
+<span class="s5">void </span><span class="s1">processCommand(</span><span class="s5">char </span><span class="s1">*commandNumber</span><span class="s6">, </span><span class="s5">char </span><span class="s1">command</span><span class="s6">, </span><span class="s5">char </span><span class="s1">*param1</span><span class="s6">, </span><span class="s5">char </span><span class="s1">*param2</span><span class="s6">, </span><span class="s5">char </span><span class="s1">*param3</span><span class="s6">, </span><span class="s1">tListU *L) {</span>
+
+    <span class="s5">switch </span><span class="s1">(command) {</span>
+        <span class="s5">case </span><span class="s3">'N'</span><span class="s1">:</span>
+            <span class="s1">printf(</span><span class="s3">&quot;********************</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s1">)</span><span class="s6">;</span>
+            <span class="s1">printf(</span><span class="s3">&quot;%s %c: user %s category %s</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s6">, </span><span class="s1">commandNumber</span><span class="s6">, </span><span class="s1">command</span><span class="s6">, </span><span class="s1">param1</span><span class="s6">, </span><span class="s1">param2)</span><span class="s6">;</span>
+
+            <span class="s5">if</span><span class="s1">(new(param1</span><span class="s6">,</span><span class="s1">param2</span><span class="s6">,  </span><span class="s1">L)!=false) {</span>
+                <span class="s1">printf(</span><span class="s3">&quot;* New: user %s category %s</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s6">,</span><span class="s1">param1</span><span class="s6">, </span><span class="s1">param2)</span><span class="s6">;</span>
+            <span class="s1">}</span>
+
+            <span class="s5">else</span><span class="s1">{</span>
+                <span class="s1">printf(</span><span class="s3">&quot;+ Error: New not possible</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s1">)</span><span class="s6">;</span>
+            <span class="s1">}</span>
+            <span class="s5">break</span><span class="s6">;</span>
+        <span class="s5">case </span><span class="s3">'D'</span><span class="s1">:</span>
+            <span class="s1">printf(</span><span class="s3">&quot;********************</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s1">)</span><span class="s6">;</span>
+            <span class="s1">printf(</span><span class="s3">&quot;%s %c: user %s</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s6">, </span><span class="s1">commandNumber</span><span class="s6">, </span><span class="s1">command</span><span class="s6">, </span><span class="s1">param1)</span><span class="s6">;</span>
+            <span class="s5">if</span><span class="s1">(delete(param1</span><span class="s6">, </span><span class="s1">L)!=true){</span>
+                <span class="s1">printf(</span><span class="s3">&quot;+ Error: Delete not possible</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s1">)</span><span class="s6">;</span>
+            <span class="s1">}</span>
+            <span class="s5">break</span><span class="s6">;</span>
+        <span class="s5">case </span><span class="s3">'A'</span><span class="s1">:</span>
+            <span class="s1">printf(</span><span class="s3">&quot;********************</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s1">)</span><span class="s6">;</span>
+            <span class="s1">printf(</span><span class="s3">&quot;%s %c: user %s song %s</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s6">, </span><span class="s1">commandNumber</span><span class="s6">, </span><span class="s1">command</span><span class="s6">, </span><span class="s1">param1</span><span class="s6">, </span><span class="s1">param2)</span><span class="s6">;</span>
+
+            <span class="s5">if</span><span class="s1">(Add(param1</span><span class="s6">,</span><span class="s1">param2</span><span class="s6">, </span><span class="s1">L)!=false) {</span>
+                <span class="s1">printf(</span><span class="s3">&quot;* Add: user %s adds song %s</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s6">,</span><span class="s1">param1</span><span class="s6">, </span><span class="s1">param2)</span><span class="s6">;</span>
+            <span class="s1">}</span>
+
+            <span class="s5">else</span><span class="s1">{</span>
+                <span class="s1">printf(</span><span class="s3">&quot;+ Error: Add not possible</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s1">)</span><span class="s6">;</span>
+            <span class="s1">}</span>
+            <span class="s5">break</span><span class="s6">;</span>
+        <span class="s5">case </span><span class="s3">'U'</span><span class="s1">:</span>
+            <span class="s5">if</span><span class="s1">(upgrade(param1</span><span class="s6">, </span><span class="s1">L)) {</span>
+                <span class="s1">printf(</span><span class="s3">&quot;********************</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s1">)</span><span class="s6">;</span>
+                <span class="s1">printf(</span><span class="s3">&quot;%s %c: user %s</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s6">, </span><span class="s1">commandNumber</span><span class="s6">, </span><span class="s1">command</span><span class="s6">, </span><span class="s1">param1)</span><span class="s6">;</span>
+                <span class="s1">printf(</span><span class="s3">&quot;* Upgrade: user %s category %s</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s6">, </span><span class="s1">param1</span><span class="s6">, </span><span class="s1">NumToCategory(param1</span><span class="s6">, </span><span class="s1">L))</span><span class="s6">;</span>
+            <span class="s1">}</span>
+            <span class="s5">else </span><span class="s1">{</span>
+                <span class="s1">printf(</span><span class="s3">&quot;********************</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s1">)</span><span class="s6">;</span>
+                <span class="s1">printf(</span><span class="s3">&quot;%s %c user %s category %s</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s6">, </span><span class="s1">commandNumber</span><span class="s6">, </span><span class="s1">command</span><span class="s6">, </span><span class="s1">param1</span><span class="s6">, </span><span class="s1">NumToCategory(param1</span><span class="s6">, </span><span class="s1">L))</span><span class="s6">;</span>
+                <span class="s1">printf(</span><span class="s3">&quot;* Error Upgrade not possible</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s1">)</span><span class="s6">;</span>
+            <span class="s1">}</span>
+            <span class="s5">break</span><span class="s6">;</span>
+        <span class="s5">case </span><span class="s3">'P'</span><span class="s1">:</span>
+            <span class="s1">printf(</span><span class="s3">&quot;********************</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s1">)</span><span class="s6">;</span>
+            <span class="s1">printf(</span><span class="s3">&quot;%s %c: user %s song %s minutes %s</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s6">, </span><span class="s1">commandNumber</span><span class="s6">, </span><span class="s1">command</span><span class="s6">, </span><span class="s1">param1</span><span class="s6">, </span><span class="s1">param2</span><span class="s6">, </span><span class="s1">param3)</span><span class="s6">;</span>
+
+            <span class="s5">if</span><span class="s1">(play(param1</span><span class="s6">, </span><span class="s1">param2</span><span class="s6">, </span><span class="s1">param3</span><span class="s6">, </span><span class="s1">L)!=true){</span>
+                <span class="s1">printf(</span><span class="s3">&quot;+ Error: Play not possible</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s1">)</span><span class="s6">;</span>
+            <span class="s1">}</span>
+            <span class="s5">break</span><span class="s6">;</span>
+        <span class="s5">case </span><span class="s3">'S'</span><span class="s1">:</span>
+            <span class="s1">stats(commandNumber</span><span class="s6">, </span><span class="s1">command</span><span class="s6">, </span><span class="s1">L)</span><span class="s6">;</span>
+            <span class="s5">break</span><span class="s6">;</span>
+        <span class="s5">case </span><span class="s3">'R'</span><span class="s1">:</span>
+            <span class="s1">printf(</span><span class="s3">&quot;********************</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s1">)</span><span class="s6">;</span>
+            <span class="s1">printf(</span><span class="s3">&quot;%s %c: maxtime %s</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s6">, </span><span class="s1">commandNumber</span><span class="s6">, </span><span class="s1">command</span><span class="s6">, </span><span class="s1">param1)</span><span class="s6">;</span>
+
+            <span class="s5">if</span><span class="s1">(Remove(param1</span><span class="s6">, </span><span class="s1">L)!=true){</span>
+                <span class="s1">printf(</span><span class="s3">&quot;+ Error: Remove not possible</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s1">)</span><span class="s6">;</span>
+            <span class="s1">}</span>
+            <span class="s5">break</span><span class="s6">;</span>
+        <span class="s5">default</span><span class="s1">:</span>
+            <span class="s5">break</span><span class="s6">;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+
+<span class="s5">void </span><span class="s1">readTasks(</span><span class="s5">char </span><span class="s1">*filename</span><span class="s6">, </span><span class="s1">tListU *L) {</span>
+
+    <span class="s1">FILE *f = NULL</span><span class="s6">;</span>
+    <span class="s5">char </span><span class="s1">*commandNumber</span><span class="s6">, </span><span class="s1">*command</span><span class="s6">, </span><span class="s1">*param1</span><span class="s6">, </span><span class="s1">*param2</span><span class="s6">, </span><span class="s1">*param3</span><span class="s6">;</span>
+    <span class="s5">const char </span><span class="s1">delimiters[] = </span><span class="s3">&quot; </span><span class="s5">\n\r</span><span class="s3">&quot;</span><span class="s6">;</span>
+    <span class="s5">char </span><span class="s1">buffer[MAX_BUFFER]</span><span class="s6">;</span>
+
+    <span class="s1">f = fopen(filename</span><span class="s6">, </span><span class="s3">&quot;r&quot;</span><span class="s1">)</span><span class="s6">;</span>
+
+    <span class="s5">if </span><span class="s1">(f != NULL) {</span>
+
+        <span class="s5">while </span><span class="s1">(fgets(buffer</span><span class="s6">, </span><span class="s1">MAX_BUFFER</span><span class="s6">, </span><span class="s1">f)) {</span>
+            <span class="s1">commandNumber = strtok(buffer</span><span class="s6">, </span><span class="s1">delimiters)</span><span class="s6">;</span>
+            <span class="s1">command = strtok(NULL</span><span class="s6">, </span><span class="s1">delimiters)</span><span class="s6">;</span>
+            <span class="s1">param1 = strtok(NULL</span><span class="s6">, </span><span class="s1">delimiters)</span><span class="s6">;</span>
+            <span class="s1">param2 = strtok(NULL</span><span class="s6">, </span><span class="s1">delimiters)</span><span class="s6">;</span>
+            <span class="s1">param3 = strtok(NULL</span><span class="s6">, </span><span class="s1">delimiters)</span><span class="s6">;</span>
+
+            <span class="s1">processCommand(commandNumber</span><span class="s6">, </span><span class="s1">command[</span><span class="s4">0</span><span class="s1">]</span><span class="s6">, </span><span class="s1">param1</span><span class="s6">, </span><span class="s1">param2</span><span class="s6">, </span><span class="s1">param3</span><span class="s6">, </span><span class="s1">L)</span><span class="s6">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">fclose(f)</span><span class="s6">;</span>
+
+    <span class="s1">} </span><span class="s5">else </span><span class="s1">{</span>
+        <span class="s1">printf(</span><span class="s3">&quot;Cannot open file %s.</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s6">, </span><span class="s1">filename)</span><span class="s6">;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+
+
+<span class="s5">int </span><span class="s1">main(</span><span class="s5">int </span><span class="s1">nargs</span><span class="s6">, </span><span class="s5">char </span><span class="s1">**args) {</span>
+
+
+    <span class="s1">tListU L</span><span class="s6">;</span>
+    <span class="s1">createEmptyListU(&amp;L)</span><span class="s6">;</span>
+
+    <span class="s5">char </span><span class="s1">*file_name = </span><span class="s3">&quot;upgrade.txt&quot;</span><span class="s6">;</span>
+
+    <span class="s5">if </span><span class="s1">(nargs &gt; </span><span class="s4">1</span><span class="s1">) {</span>
+        <span class="s1">file_name = args[</span><span class="s4">1</span><span class="s1">]</span><span class="s6">;</span>
+    <span class="s1">} </span><span class="s5">else </span><span class="s1">{</span>
+        <span class="s2">#ifdef </span><span class="s1">INPUT_FILE</span>
+        <span class="s1">file_name = INPUT_FILE</span><span class="s6">;</span>
+        <span class="s2">#endif</span>
+    <span class="s1">}</span>
+
+    <span class="s1">readTasks(file_name</span><span class="s6">, </span><span class="s1">&amp;L)</span><span class="s6">;</span>
+
+    <span class="s5">return </span><span class="s4">0</span><span class="s6">;</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>
