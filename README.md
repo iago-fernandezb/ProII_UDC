@@ -13,12 +13,6 @@ Proyecto de **Programación II (UDC)**. Gestor de listas tipo “Spotify” en *
 ## 🛠 Tecnologías
 C (C99/C11), GCC/Clang, `make`
 
-## ▶️ Compilación y ejecución
-bash
-# Clonar (opcional)
-git clone https://github.com/iago-fernandezb/ProII_UDC.git
-cd ProII_UDC
-
 
 
 # Ingles
